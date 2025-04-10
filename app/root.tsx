@@ -9,6 +9,12 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
+const client = new ApolloClient({
+  uri: import.meta.env.VITE_API_URL,
+  cache: new InMemoryCache(),
+});
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -32,8 +38,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
-        {children}
+      <body className="bg-[#e5e5e5] max-h-screen overflow-y-hidden">
+        <ApolloProvider client={client}>
+          {children}
+        </ApolloProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
