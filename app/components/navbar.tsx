@@ -4,11 +4,11 @@ export default function Navbar({ isOpen, toggleMenu }: { isOpen: boolean, toggle
 
   return <>
     <header className="w-full flex justify-between transition-all duration-200 bg-(--bg-gray-tkd) text-white text-xl px-5 md:px-10 py-3">
-      <button className="flex justify-between items-center lg:hidden">
+      <button className="lg:hidden">
         {!isOpen && <AiOutlineMenu onClick={() => toggleMenu()} className="h-[18px] h-auto" />}
         {isOpen && <AiOutlineClose onClick={() => toggleMenu()} className="h-[18px] h-auto" />}
       </button>
-      <button>
+      <button className="text-(--bg-gray-tkd)">
         Drake
       </button>
     </header>

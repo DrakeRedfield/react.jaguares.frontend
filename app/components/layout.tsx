@@ -15,7 +15,7 @@ export default function BaseLayout() {
       <Sidebar isOpen={isOpen} toggleMenu={toggleMenu} />
       <div className="w-full grid grid-rows-[auto_1fr]">
         <Navbar isOpen={isOpen} toggleMenu={toggleMenu} />
-        <main className="p-5 ove">
+        <main>
           <Outlet />
         </main>
       </div>
