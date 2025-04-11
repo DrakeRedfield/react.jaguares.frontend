@@ -7,12 +7,15 @@
   --font-lato: "Lato", sans-serif;
   --background-site: #1E1E1E;
   --card-background: #1E1E1E;
-  --blue-site: #21B3E8;
+  --blue-tkd: #21B3E8;
 
   --background-blue: #314051;
   --background-blue-hover: #2b3744;
   /* --text-gray: #757575; */
-  /* --background-site: #efefef; */
+  --bg-gray-tkd: #242425;
+
+  /* Sizes */
+  --sidebar-size: 20rem;
 }
 
 html,

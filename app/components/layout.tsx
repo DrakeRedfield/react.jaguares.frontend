@@ -1,11 +1,24 @@
 import { Outlet } from "react-router";
 import Navbar from "./navbar";
+import Sidebar from "./sidebar";
+import { useState } from "react";
 
 export default function BaseLayout() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen((prevValue) => !prevValue);
+  }
+
   return <>
-    <Navbar />
-    <main>
-      <Outlet />
-    </main>
+    <div className="lg:flex">
+      <Sidebar isOpen={isOpen} toggleMenu={toggleMenu} />
+      <div className="w-full grid grid-rows-[auto_1fr]">
+        <Navbar isOpen={isOpen} toggleMenu={toggleMenu} />
+        <main className="p-5 ove">
+          <Outlet />
+        </main>
+      </div>
+    </div>
   </>
 }
