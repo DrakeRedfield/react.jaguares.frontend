@@ -13,9 +13,9 @@ export default function BaseLayout() {
   return <>
     <div className="lg:flex">
       <Sidebar isOpen={isOpen} toggleMenu={toggleMenu} />
-      <div className="w-full grid grid-rows-[auto_1fr]">
+      <div className="w-full grid grid-rows-[auto_1fr] max-h-screen">
         <Navbar isOpen={isOpen} toggleMenu={toggleMenu} />
-        <main>
+        <main className="overflow-y-auto">
           <Outlet />
         </main>
       </div>
