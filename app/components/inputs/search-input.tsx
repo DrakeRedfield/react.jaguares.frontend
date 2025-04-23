@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import clsx from "clsx";
+import React, { useEffect, useRef, useState, type HTMLProps } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, filter } from "rxjs/operators";
 
-interface SearchInputProps {
+interface SearchInputProps extends HTMLProps<HTMLDivElement> {
   debounce?: boolean;
   onSearch: (value: string) => void;
   debounceTime?: number;
@@ -17,6 +18,8 @@ export default function SearchInput({
   debounceTime: debounceMs = 500,
   placeholder = "Buscar...",
   minLength = 3,
+  className,
+  ...restProps
 }: SearchInputProps) {
   const [value, setValue] = useState("");
   const input$ = useRef(new Subject<string>());
@@ -48,22 +51,20 @@ export default function SearchInput({
   };
 
   return (
-    <div className="flex gap-2 items-center">
-      <div>
-        <div className="relative">
-          <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-            <AiOutlineSearch className="w-4 h-4 text-gray-500" />
-          </div>
-          <input
-            type="text"
-            id="search-input"
-            name="search-input"
-            placeholder={placeholder}
-            value={value}
-            onChange={handleChange}
-            className="block py-1 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
-          />
+    <div className={clsx('flex gap-2 items-center', className)} {...restProps}>
+      <div className="relative w-full">
+        <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+          <AiOutlineSearch className="w-4 h-4 text-gray-500" />
         </div>
+        <input
+          type="text"
+          id="search-input"
+          name="search-input"
+          placeholder={placeholder}
+          value={value}
+          onChange={handleChange}
+          className="block py-1 ps-10 text-sm text-gray-900 border border-gray-300 w-full rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+        />
       </div>
       {!debounce && (
         <button

@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import type { PropsWithChildren } from "react";
 
 // Slot: Title
@@ -6,8 +7,8 @@ export const Title: React.FC<PropsWithChildren> = ({ children }) => (
 );
 
 // Slot: Body
-export const Body: React.FC<PropsWithChildren> = ({ children }) => (
-  <div className="text-base">{children}</div>
+export const Body: React.FC<PropsWithChildren<{ className?: string}>> = ({ children, className = '' }) => (
+  <div className={clsx("text-base", className)}>{children}</div>
 );
 
 // Slot: Footer
