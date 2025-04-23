@@ -14,11 +14,11 @@
   /* --text-gray: #757575; */
   --bg-gray-tkd: #242425;
 
+  /* padddings */
+  --container-padding: 1.25rem;
+
   /* Sizes */
   --sidebar-size: 17.5rem;
-
-  /* Cards */
-  --bg-card: white;
 }
 
 html,
@@ -30,18 +30,4 @@ body {
   /* @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   } */
-}
-
-.card {
-  @apply bg-(--bg-card) text-black rounded-lg shadow-md p-4;
-  color: black;
-}
-.card-header {
-  @apply text-lg font-bold mb-2;
-}
-.card-body {
-  @apply text-gray-500;
-}
-.card-footer {
-  @apply text-sm;
 }
