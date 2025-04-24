@@ -5,38 +5,27 @@ import { AiOutlineMore } from "react-icons/ai";
 
 // Table Actions Menu
 export const ActionsMenu = ({ actions }: { actions: { label: string; onClick: () => void }[] }) => (
-  <Menu as="div" className="relative inline-block text-left">
-    <MenuButton className="p-1 rounded-full hover:bg-gray-100">
+  <Menu>
+    <MenuButton className="p-1 rounded-full hover:bg-gray-200">
       <AiOutlineMore className="w-5 h-5 text-gray-600" />
     </MenuButton>
-
-    <Transition
-      as={React.Fragment}
-      enter="transition ease-out duration-100"
-      enterFrom="opacity-0 scale-95"
-      enterTo="opacity-100 scale-100"
-      leave="transition ease-in duration-75"
-      leaveFrom="opacity-100 scale-100"
-      leaveTo="opacity-0 scale-95"
-    >
-      <MenuItems className="absolute right-0 mt-2 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
-        {actions.map((action, index) => (
-          <MenuItem key={index}>
-            {({ active }) => (
-              <button
-                onClick={action.onClick}
-                className={clsx(
-                  "w-full px-4 py-2 text-sm text-left",
-                  active ? "bg-gray-100 text-gray-900" : "text-gray-700"
-                )}
-              >
-                {action.label}
-              </button>
-            )}
-          </MenuItem>
-        ))}
-      </MenuItems>
-    </Transition>
+    <MenuItems className="absolute grid mt-2 w-40 origin-top-right rounded-md bg-white shadow-lg focus:outline-none z-10">
+      {actions.map((action, index) => (
+        <MenuItem key={index}>
+          {
+            <button
+              onClick={() => { action.onClick(); console.log("click") }}
+              type='button'
+              className={clsx(
+                "w-full px-4 py-2 text-sm text-left", "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+              )}
+            >
+              {action.label}
+            </button>
+          }
+        </MenuItem>
+      ))}
+    </MenuItems>
   </Menu>
 );
 
