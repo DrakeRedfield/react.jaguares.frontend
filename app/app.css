@@ -33,3 +33,7 @@ body {
     color-scheme: dark;
   } */
 }
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
