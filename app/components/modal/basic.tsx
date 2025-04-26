@@ -1,13 +1,15 @@
 // components/ui/modal.tsx
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from "@headlessui/react"
-import { Fragment, type ReactNode } from "react"
+import React, { Fragment, isValidElement, type ReactElement, type ReactNode } from "react"
 import clsx from "clsx"
 import {
   AiOutlineInfoCircle as InfoIcon,
   AiOutlineCheckCircle as SuccessIcon,
   AiOutlineWarning as WarningIcon,
   AiOutlineCloseCircle as DangerIcon,
+  AiOutlineClose as CloseIcon,
 } from "react-icons/ai"
+import { Content, Footer } from "./slots"
 
 type Variant = "default" | "info" | "success" | "warning" | "danger"
 
@@ -43,20 +45,29 @@ type ModalProps = {
   variant?: Variant
   size?: Size
   showCloseButton?: boolean
-  footer?: ReactNode
 }
 
-const Modal = ({
+const Modal: React.FC<ModalProps> & {
+  Footer: typeof Footer;
+  Content: typeof Content;
+} = ({
   open,
   onClose,
   title,
   children,
   variant = "default",
   size = "md",
-  showCloseButton = true,
-  footer,
-}: ModalProps) => {
+  showCloseButton = true
+}) => {
   const icon = variantIcons[variant]
+  const childrenArray = React.Children.toArray(children);
+  const getChildOfType = (type: any): ReactElement | undefined =>
+    childrenArray.find(
+      (child): child is ReactElement =>
+        isValidElement(child) && child.type === type
+    );
+  const footer = getChildOfType(Footer);
+  const content = getChildOfType(Content);
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -105,13 +116,13 @@ const Modal = ({
                       onClick={onClose}
                       className="text-gray-500 hover:text-gray-800 ml-4 text-xl leading-none"
                     >
-                      ×
+                      <CloseIcon />
                     </button>
                   )}
                 </div>
               )}
-              <div className="mt-4">{children}</div>
-              {footer && <div className="mt-6">{footer}</div>}
+              {content}
+              {footer}
             </DialogPanel>
           </TransitionChild>
         </div>
@@ -119,5 +130,8 @@ const Modal = ({
     </Transition>
   )
 }
+
+Modal.Footer = Footer;
+Modal.Content = Content;
 
 export default Modal;
